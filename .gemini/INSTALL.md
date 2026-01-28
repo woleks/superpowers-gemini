@@ -10,20 +10,52 @@ Tell Gemini CLI:
 Please read and follow the instructions from https://raw.githubusercontent.com/woleks/superpowers-gemini/refs/heads/main/.gemini/INSTALL.md
 ```
 
+---
+
+## ⚠️ CRITICAL: SEQUENTIAL EXECUTION RULE FOR AI
+**If you are an AI assistant, you MUST follow these rules to avoid API Error 400:**
+1. **ONE TOOL AT A TIME:** Execute exactly ONE tool call (e.g., one `run_shell_command`).
+2. **WAIT for output** and user approval before initiating the next tool call.
+3. **DO NOT parallelize** installation steps or skill activations.
+
+---
+
 ## 🔍 Pre-installation Check
 
 Before installing, check if you already have Superpowers:
 1. Run `gemini skill list`. 
 2. If you see `using-superpowers`, it's already installed globally.
-3. **SKIP** the installation steps below and go straight to **Usage**.
+3. **STOP HERE** and go straight to **Usage**.
 
 ## Manual Installation
 
 ### 1. Clone Superpowers
+Choose a base directory for your projects (e.g., `~/projects/`).
 
 ```bash
-mkdir -p ~/projects/superpowers
+# Windows/Linux/macOS
 git clone https://github.com/woleks/superpowers-gemini.git ~/projects/superpowers
+```
+
+### 2. Link Skills to Gemini CLI
+This makes skills available globally.
+
+**macOS / Linux:**
+```bash
+mkdir -p ~/.gemini/skills
+ln -s ~/projects/superpowers/skills/* ~/.gemini/skills/
+```
+
+**Windows (Run PowerShell as Administrator):**
+```powershell
+# 1. Create directory if missing
+if (!(Test-Path "$HOME\.gemini\skills")) { New-Item -ItemType Directory -Path "$HOME\.gemini\skills" }
+
+# 2. Create symbolic links
+Get-ChildItem -Path "$HOME\projects\superpowers\skills\*" -Directory | ForEach-Object {
+    $target = Join-Path "$HOME\.gemini\skills" $_.Name
+    if (!(Test-Path $target)) { New-Item -ItemType SymbolicLink -Path $target -Target $_.FullName }
+}
 ```
 
 ### 2. Link Skills to Gemini CLI
