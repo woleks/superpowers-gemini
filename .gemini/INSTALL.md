@@ -1,119 +1,43 @@
-# Superpowers for Gemini CLI
+# ⚠️ STOP: READ THIS FIRST (CRITICAL FOR AI)
 
-Complete guide for using Superpowers with Google Gemini CLI.
-
-## Quick Install
-
-Tell Gemini CLI:
-
-```
-Please read and follow the instructions from https://raw.githubusercontent.com/woleks/superpowers-gemini/refs/heads/main/.gemini/INSTALL.md
-```
+**IF YOU ARE AN AI ASSISTANT, YOU MUST FOLLOW THIS RULE TO AVOID CRASHING THE SESSION:**
+1. **SEQUENTIAL EXECUTION ONLY:** You MUST execute exactly ONE (1) tool call at a time.
+2. **WAIT FOR OUTPUT:** Do not attempt any other tool calls or actions until you receive the response from the previous tool.
+3. **DO NOT PARALLELIZE:** Even if it seems efficient, parallel tool calls will trigger "API Error 400" and fail the session.
 
 ---
 
-## ⚠️ CRITICAL: SEQUENTIAL EXECUTION RULE FOR AI
-**If you are an AI assistant, you MUST follow these rules to avoid API Error 400:**
-1. **ONE TOOL AT A TIME:** Execute exactly ONE tool call (e.g., one `run_shell_command`).
-2. **WAIT for output** and user approval before initiating the next tool call.
-3. **DO NOT parallelize** installation steps or skill activations.
+# Superpowers for Gemini CLI Installation
 
----
+## 🔍 Step 1: Pre-installation Check
+Run this command alone:
+```bash
+gemini skill list
+```
+*If `using-superpowers` is already in the list, **STOP** and go to the **Usage** section below.*
 
-## 🔍 Pre-installation Check
+## 🛠️ Step 2: One-Step Automated Setup
+Choose the command for your OS. **Run ONLY this command and wait.**
 
-Before installing, check if you already have Superpowers:
-1. Run `gemini skill list`. 
-2. If you see `using-superpowers`, it's already installed globally.
-3. **STOP HERE** and go straight to **Usage**.
-
-## Manual Installation
-
-### 🛠️ One-Step Automated Setup (Recommended)
-**AI AGENT:** Run ONLY ONE of these commands based on the OS. Do not run any other tools in the same turn.
-
-**Windows (PowerShell):**
+### Windows (PowerShell)
 ```powershell
-powershell -ExecutionPolicy Bypass -Command "Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/woleks/superpowers-gemini/refs/heads/main/setup.ps1' -OutFile 'setup.ps1'; .\setup.ps1; Remove-Item 'setup.ps1'"
+powershell -ExecutionPolicy Bypass -Command "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/woleks/superpowers-gemini/refs/heads/main/setup.ps1' -OutFile 'setup.ps1'; .\setup.ps1; Remove-Item 'setup.ps1'"
 ```
 
-**macOS / Linux (Bash):**
+### macOS / Linux (Bash)
 ```bash
 curl -sSL https://raw.githubusercontent.com/woleks/superpowers-gemini/refs/heads/main/setup.sh | bash
 ```
 
 ---
 
-### 📖 Manual Steps (Alternative)
-If automated setup fails, follow these steps sequentially:
-
-### 1. Clone Superpowers
-Choose a base directory for your projects (e.g., `~/projects/`).
-
-```bash
-# Windows/Linux/macOS
-git clone https://github.com/woleks/superpowers-gemini.git ~/projects/superpowers
-```
-
-### 2. Link Skills to Gemini CLI
-This makes skills available globally.
-
-**macOS / Linux:**
-```bash
-mkdir -p ~/.gemini/skills
-ln -s ~/projects/superpowers/skills/* ~/.gemini/skills/
-```
-
-**Windows (Run PowerShell as Administrator):**
-```powershell
-# 1. Create directory if missing
-if (!(Test-Path "$HOME\.gemini\skills")) { New-Item -ItemType Directory -Path "$HOME\.gemini\skills" }
-
-# 2. Create symbolic links
-Get-ChildItem -Path "$HOME\projects\superpowers\skills\*" -Directory | ForEach-Object {
-    $target = Join-Path "$HOME\.gemini\skills" $_.Name
-    if (!(Test-Path $target)) { New-Item -ItemType SymbolicLink -Path $target -Target $_.FullName }
-}
-```
-
-### 3. Verify Installation
-
-Run:
-```bash
-gemini skill list
-```
-
-You should see `using-superpowers`, `brainstorming`, etc., in the list.
-
-## Usage
-
-### Starting a session
-
-Always start your session by activating the `using-superpowers` skill:
-
+## 🚀 Usage
+Once setup is complete, always start every session with:
 ```
 activate_skill(name: "using-superpowers")
 ```
 
-This will set the ground rules for the entire session.
+---
 
-### Tool Mapping
-
-Gemini CLI tools are mapped as follows:
-- `Skill` tool → `activate_skill`
-- `Bash` / `Terminal` → `run_shell_command`
-- `Read` → `read_file`
-- `Write` → `write_file`
-- `Edit` → `replace`
-- `Subagents` → `delegate_to_agent(agent_name: "codebase_investigator", ...)` or `delegate_to_agent` in general.
-
-## Why Superpowers?
-
-Superpowers provides a disciplined workflow for:
-1. **Brainstorming** before coding.
-2. **Test-Driven Development** (TDD).
-3. **Systematic Debugging**.
-4. **Implementation Planning**.
-
-By following these skills, Gemini CLI becomes much more capable and reliable for complex engineering tasks.
-
+## 📖 Troubleshooting & Manual Steps
+If the automated setup fails, refer to the [Full Documentation](https://github.com/woleks/superpowers-gemini/blob/main/docs/README.gemini.md).
