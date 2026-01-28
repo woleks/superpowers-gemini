@@ -57,6 +57,16 @@ Check that commands appear:
 # /superpowers:execute-plan - Execute plan in batches
 ```
 
+### Gemini CLI
+
+Tell Gemini:
+
+```
+Please read and follow the instructions from https://raw.githubusercontent.com/woleks/superpowers-gemini/refs/heads/main/.gemini/INSTALL.md
+```
+
+**Detailed docs:** [docs/README.gemini.md](docs/README.gemini.md)
+
 ### Codex
 
 Tell Codex:

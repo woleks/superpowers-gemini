@@ -88,6 +88,8 @@ digraph process {
 - `./spec-reviewer-prompt.md` - Dispatch spec compliance reviewer subagent
 - `./code-quality-reviewer-prompt.md` - Dispatch code quality reviewer subagent
 
+**In Gemini CLI:** Use the `delegate_to_agent` tool to dispatch subagents. For "implementer" or "reviewer" roles, provide the content of the respective template file as the objective or part of the objective for the subagent.
+
 ## Example Workflow
 
 ```
