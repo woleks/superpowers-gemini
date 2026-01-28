@@ -20,10 +20,12 @@ fi
 mkdir -p "$SKILLS_DIR"
 
 # 3. Symlink
-echo "Creating symbolic links..."
+echo "Setting up symbolic links..."
 for d in "$TARGET_DIR"/skills/*/ ; do
     skill_name=$(basename "$d")
-    ln -sf "$d" "$SKILLS_DIR/$skill_name"
+    # -n handles symlinks to directories correctly, -f forces replacement
+    ln -snf "$d" "$SKILLS_DIR/$skill_name"
+    echo "  [OK] $skill_name"
 done
 
 echo "--- Setup Complete! ---"

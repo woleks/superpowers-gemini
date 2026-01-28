@@ -24,20 +24,15 @@ if (!(Test-Path $SkillsDir)) {
 }
 
 # 3. Create Symlinks
-Write-Host "Creating symbolic links for skills..."
+Write-Host "Setting up symbolic links for skills..."
 Get-ChildItem -Path "$TargetDir\skills\*" -Directory | ForEach-Object {
     $linkPath = Join-Path $SkillsDir $_.Name
+    # Ensure fresh and correct link by removing existing item first
     if (Test-Path $linkPath) {
-        # Check if it's already a link or needs replacement
-        $item = Get-Item $linkPath
-        if ($item.LinkType -ne "SymbolicLink") {
-            Write-Host "Replacing existing folder $($_.Name) with symbolic link..."
-            Remove-Item $linkPath -Recurse -Force
-            New-Item -ItemType SymbolicLink -Path $linkPath -Target $_.FullName | Out-Null
-        }
-    } else {
-        New-Item -ItemType SymbolicLink -Path $linkPath -Target $_.FullName | Out-Null
+        Remove-Item $linkPath -Recurse -Force
     }
+    New-Item -ItemType SymbolicLink -Path $linkPath -Target $_.FullName | Out-Null
+    Write-Host "  [OK] $($_.Name)"
 }
 
 Write-Host "--- Setup Complete! ---" -ForegroundColor Green
