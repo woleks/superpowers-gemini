@@ -10,6 +10,13 @@ Tell Gemini CLI:
 Please read and follow the instructions from https://raw.githubusercontent.com/woleks/superpowers-gemini/refs/heads/main/.gemini/INSTALL.md
 ```
 
+## 🔍 Pre-installation Check
+
+Before installing, check if you already have Superpowers:
+1. Run `gemini skill list`. 
+2. If you see `using-superpowers`, it's already installed globally.
+3. **SKIP** the installation steps below and go straight to **Usage**.
+
 ## Manual Installation
 
 ### 1. Clone Superpowers
