@@ -4,6 +4,7 @@ This project uses the **Superpowers** skills system to ensure high-quality engin
 
 ## Critical Instructions
 
+- **Sequential Execution:** You MUST execute only ONE tool call per turn. Wait for the output before initiating the next tool call. This prevents "API Error 400".
 - **Always check for skills** before starting any task.
 - Use the `activate_skill` tool to load relevant skills.
 - The `using-superpowers` skill is the entry point for understanding the system.

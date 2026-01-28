@@ -16,6 +16,7 @@ When skills reference tools from other platforms, use your equivalent tools:
 - `TodoWrite` / `Task` → Use your internal reasoning or `save_memory` if appropriate, but generally follow the skill's instructions for task tracking.
 
 **Critical Rules:**
+- **SEQUENTIAL EXECUTION:** You MUST execute only ONE tool call per turn. Wait for the output before initiating the next tool call. This prevents "API Error 400".
 - Before ANY task, check if a relevant skill exists in your available skills list.
 - If a relevant skill exists, you MUST use `activate_skill` to load it.
 - Announce: "I've activated the [Skill Name] skill and I'm using it to [purpose]"
